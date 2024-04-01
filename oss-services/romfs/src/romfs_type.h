@@ -2,6 +2,7 @@
 #define __ROMFS_TYPE_H__
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #ifndef NULL
 #define NULL    ((void *)0)
@@ -15,10 +16,10 @@
 #define TRUE    (1)
 #endif
 
-typedef unsigned char  BYTE;
-typedef unsigned short WORD;
-typedef unsigned long  DWORD;
-typedef unsigned int   BOOL;
+typedef uint8_t  BYTE;
+typedef uint16_t WORD;
+typedef uint32_t DWORD;
+typedef bool     BOOL;
 
 typedef uint8_t u8;
 typedef int8_t s8;

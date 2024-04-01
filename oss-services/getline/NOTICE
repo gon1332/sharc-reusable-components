@@ -1,0 +1,12 @@
+*-------------------------*
+*  OSS Traceability Info  *
+*-------------------------*
+
+Function Name = getline
+Source Component Name = getline
+Source Location = https://github.com/freebsd/freebsd-src/blob/main/contrib/file/src/getline.c
+Source Version = 12.4.0
+Source Origin ID = Commit: 4460e5b02d2e07d8aa286fff8f644a442b376cae
+Source Usage = Source Code
+Source License = BSD-2-Clause
+Purpose = <EMPTY>

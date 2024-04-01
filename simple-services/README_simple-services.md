@@ -10,6 +10,10 @@ The `syslog` directory contains a system logging component useful for logging ev
 
 The `a2b-xml` directory contains a component capable of parsing SigmaStudio A2B network configurations exported in XML format and converting them for direct use by the `ad2425` driver.
 
+## a2b-to-sport-cfg
+
+The `a2b-to-sport-cfg` directory contains a component that can convert A2B I2SGCFG/I2SCFG registers into a compatible simple sport driver configuration.
+
 ## adi-osal-minimal
 
 The `adi-osal-minimal` directory contains a *VERY* minimal implemntation of the ADI OSAL layer.  It's basically just FreeRTOS critical section code.

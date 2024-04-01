@@ -4,10 +4,15 @@
 #include <errno.h>
 #include <stdio.h>
 #include <ctype.h>
+#include <stdint.h>
 
 #include "romfs.h"
 #include "romfs_platform.h"
 #include "romfs_devman.h"
+
+/*
+ * This code has been modified by Analog Devices, Inc.
+ */
 
 #define ROMFS_ALIGN     4
 #define ROMFS_ALIGN_OFFSET(x) (( x + ROMFS_ALIGN - 1 ) & ~( ROMFS_ALIGN - 1 ))
@@ -513,6 +518,26 @@ static const char* romfs_getaddr_r( struct _reent *r, int fd, void *pdata )
     return NULL;
 }
 
+// stat
+static int romfs_stat_r( struct _reent *r, const char *path, DM_STAT *stat, void *pdata )
+{
+  FSDATA *pfsdata = ( FSDATA* )pdata;
+  u32 firstfree, nameaddr;
+  FD tempfs;
+  int exists;
+
+  exists = romfs_open_file( path, &tempfs, pfsdata, &firstfree, &nameaddr ) == FS_FILE_OK;
+  if (!exists) {
+      return FS_FILE_NOT_FOUND;
+  }
+
+  memset(stat, 0, sizeof(*stat));
+  stat->fsize = tempfs.size;
+
+  return(FS_FILE_OK);
+}
+
+
 // ****************************************************************************
 // Our ROMFS device descriptor structure
 // These functions apply to both ROMFS and WOFS
@@ -531,7 +556,8 @@ static const DM_DEVICE romfs_device =
   NULL,                 // mkdir
   romfs_unlink_r,       // unlink
   NULL,                 // rmdir
-  NULL                  // rename
+  NULL,                 // rename
+  romfs_stat_r          // stat
 };
 
 // ****************************************************************************
@@ -541,7 +567,7 @@ static u32 romfs_write( const void *from, u32 toaddr, u32 size, const void *pdat
 {
   const FSDATA *pfsdata = ( const FSDATA* )pdata;
 
-  toaddr += ( u32 )pfsdata->pbase;
+  toaddr += ( uintptr_t )pfsdata->pbase;
   return platform_flash_write( from, toaddr, size );
 }
 
@@ -549,7 +575,7 @@ static u32 romfs_read( void *to, u32 fromaddr, u32 size, const void *pdata )
 {
   const FSDATA *pfsdata = ( const FSDATA* )pdata;
 
-  fromaddr += ( u32 )pfsdata->pbase;
+  fromaddr += ( uintptr_t )pfsdata->pbase;
   return platform_flash_read( fromaddr, to, size );
 }
 
@@ -577,7 +603,7 @@ int romfs_format( u8 all )
     sect_last = platform_flash_get_sector_of_address( ROMFS_FS_END_ADDRESS - 1);
   } else {
     romfs_open_file( "\1", &tempfd, &wofs_fsdata, &sect_last, NULL );
-    sect_last = platform_flash_get_sector_of_address( sect_last + ( u32 )wofs_fsdata.pbase );
+    sect_last = platform_flash_get_sector_of_address( sect_last + ( uintptr_t )wofs_fsdata.pbase );
   }
   while( sect_first <= sect_last )
     if( platform_flash_erase_sector( sect_first ++ ) == PLATFORM_ERR )

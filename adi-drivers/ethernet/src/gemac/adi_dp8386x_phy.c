@@ -174,6 +174,25 @@ static uint16_t raw_phy_read (
     return (uint16_t)pEmacRegs->EMAC_GMII_DATA;
 }
 
+#ifdef __SAM_V1__
+/***********************************************************************
+ * ADIN1300 Phy Routines
+ **********************************************************************/
+#define ADIN1300_OUI_VENDOR      0x0283
+#define ADIN1300_OUT_MODEL       0xBC30
+
+ADI_PHY_RESULT adin1300_phy_init (
+                                 ADI_PHY_DEVICE* pPhyDevice,
+                                 ADI_ETHER_HANDLE        const hDevice,
+                                 ADI_PHY_DEV_INIT *      const pInitParams
+                                 );
+ADI_PHY_RESULT adin1300_phy_uninit (ADI_PHY_DEVICE* pPhyDevice);
+ADI_PHY_RESULT adin1300_phy_get_status(ADI_PHY_DEVICE* pPhyDevice, uint32_t* const nStatus);
+/***********************************************************************
+ * ADIN1300 Phy Routines
+ **********************************************************************/
+#endif
+
 ADI_PHY_RESULT dp8386x_phy_init (
                                  ADI_PHY_DEVICE* 		 pPhyDevice,
                                  ADI_ETHER_HANDLE        const hDevice,
@@ -201,6 +220,10 @@ ADI_PHY_RESULT dp8386x_phy_init (
     	pPhyDevice->PhyAddress = 0;
     else if(phy_vendor1 == DP83865_OUI_VENDOR)
     	pPhyDevice->PhyAddress = 1;
+#ifdef __SAM_V1__
+    else if(phy_vendor0 == ADIN1300_OUI_VENDOR)
+        pPhyDevice->PhyAddress = 0;
+#endif
     else
     {
         ETHER_PRINT("Phy identification failed vendor ID\n");
@@ -224,6 +247,14 @@ ADI_PHY_RESULT dp8386x_phy_init (
     	pPhyDevice->getStatus = dp83867_phy_get_status;
     	return dp83867_phy_init( pPhyDevice, hDevice, pInitParams );
     }
+#ifdef __SAM_V1__
+    else if (phy_model == ADIN1300_OUT_MODEL)
+    {
+        pPhyDevice->uninit = adin1300_phy_uninit;
+        pPhyDevice->getStatus = adin1300_phy_get_status;
+        return adin1300_phy_init( pPhyDevice, hDevice, pInitParams );
+    }
+#endif
     else
     {
         ETHER_PRINT("Phy identification failed model ID\n");

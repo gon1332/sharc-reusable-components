@@ -93,3 +93,10 @@ long fs_seek(int fd, long offset, int whence)
    offset = romfs.pdev->p_lseek_r(&reent, fd - FD_OFFSET, offset, whence, romfs.pdata);
    return(offset);
 }
+
+int fs_stat(const char *name, DM_STAT *stat)
+{
+    int ret;
+    ret = romfs.pdev->p_stat_r(&reent, name, stat, romfs.pdata);
+    return(ret);
+}

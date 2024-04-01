@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2023 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -22,6 +22,21 @@
 #include "romfs.h"
 #include "romfs_devman.h"
 
+static const char *dev_romfs_strip_path(const char *path)
+{
+   /* Lua looks for modules starting with a './' path */
+   if ((strlen(path) > 2) && (strncmp(path, "./", 2) == 0)) {
+      path += 2;
+   }
+
+   /* Strip leading slash */
+   if ((strlen(path) > 1) && (strncmp(path, "/", 1) == 0)) {
+      path += 1;
+   }
+
+   return(path);
+}
+
 static int dev_romfs_open(const char *path, int flags, int mode, void *pdata)
 {
    int fd;
@@ -29,43 +44,11 @@ static int dev_romfs_open(const char *path, int flags, int mode, void *pdata)
 
    romfsFlags = 0;
 
-#if defined(__ADSPARM__)
-   if (mode & ADI_BINARY) {
-       /* Binary mode, ignore */
-   }
-   if (mode & ADI_RW) {
-       /* Read/Write mode */
-       romfsFlags |= O_RDWR;
-   }
-   if (mode & ADI_WRITE) {
-       /* Write mode */
-       if ((mode & ADI_RW) == 0) {
-           romfsFlags |= O_WRONLY;
-       }
-       romfsFlags |= O_CREAT | O_TRUNC;
-   } else if (mode & ADI_APPEND) {
-       /* Append mode */
-       if ((mode & ADI_RW) == 0) {
-           romfsFlags |= O_WRONLY;
-       }
-       romfsFlags |= O_CREAT | O_APPEND;
-   } else {
-       if ((mode & ADI_RW) == 0) {
-           romfsFlags |= O_RDONLY;
-       }
-   }
-#else
-   if ((mode & ADI_RW) == ADI_RW)
-      romfsFlags |= O_RDWR;
-   else if (mode & ADI_READ)
-      romfsFlags |= O_RDONLY;
-   else if (mode & ADI_WRITE)
-      romfsFlags |= O_WRONLY;
-
+   if (mode & ADI_READ) romfsFlags |= O_RDONLY;
+   if (mode & ADI_WRITE) romfsFlags |= O_WRONLY;
    if (mode & ADI_APPEND) romfsFlags |= O_APPEND;
    if (mode & ADI_CREAT) romfsFlags |= O_CREAT;
    if (mode & ADI_TRUNC) romfsFlags |= O_TRUNC;
-#endif
 
    /* Lua looks for modules starting with a './' path */
    if ((strlen(path) > 2) && (strncmp(path, "./", 2) == 0)) {
@@ -163,6 +146,8 @@ static int dev_romfs_unlink(const char *fname, void *pdata)
 {
     int result;
 
+    fname = dev_romfs_strip_path(fname);
+
     result = dm_unlink(fname);
     if (result == FS_FILE_OK) {
         result = 0;
@@ -171,6 +156,24 @@ static int dev_romfs_unlink(const char *fname, void *pdata)
     }
 
     return(result);
+}
+
+int dev_romfs_stat(const char* fname, FS_DEVMAN_STAT *stat, void *pdata)
+{
+    int result = FS_ERROR;
+    DM_STAT s;
+
+    fname = dev_romfs_strip_path(fname);
+
+    result = fs_stat(fname, &s);
+    if (result == FS_FILE_OK) {
+        stat->fsize = s.fsize;
+        stat->ftime = 0;
+        stat->fdate = 1 << 5;
+        stat->flags = 0;
+    }
+
+    return((result == FS_FILE_OK) ? 0 : -1);
 }
 
 static FS_DEVMAN_DEVICE FS_DEV_ROMFS = {
@@ -183,6 +186,7 @@ static FS_DEVMAN_DEVICE FS_DEV_ROMFS = {
   .fsd_readdir = dev_romfs_readdir,
   .fsd_closedir = dev_romfs_closedir,
   .fsd_unlink = dev_romfs_unlink,
+  .fsd_stat = dev_romfs_stat,
   .fsd_rename = NULL
 };
 

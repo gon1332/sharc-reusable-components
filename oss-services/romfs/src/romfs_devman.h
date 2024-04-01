@@ -44,6 +44,11 @@ typedef struct {
   void *userdata;
 } DM_DIR;
 
+// Our platform independent "stat" structure
+typedef struct {
+    u32 fsize;
+} DM_STAT;
+
 #define DM_DIRENT_IS_DIR( ent )   ( ( ( ent )->flags & DM_DIRENT_FLAG_DIR ) != 0 )
 
 // A device structure with pointers to all the device functions
@@ -64,6 +69,7 @@ typedef struct
   int ( *p_unlink_r )( struct _reent *r, const char *fname, void *pdata );
   int ( *p_rmdir_r )( struct _reent *r, const char *fname, void *pdata );
   int ( *p_rename_r )( struct _reent *r, const char *oldname, const char *newname, void *pdata );
+  int ( *p_stat_r )( struct _reent *r, const char *path, DM_STAT *stat, void *pdata );
 } DM_DEVICE;
 
 // Additional registration data for each FS (per FS instance)
@@ -112,6 +118,8 @@ struct dm_dirent* dm_readdir( DM_DIR *d );
 int dm_closedir( DM_DIR *d );
 const char* dm_getaddr( int fd );
 int dm_unlink( const char *pathname);
+
+int fs_stat(const char *name, DM_STAT *stat);
 
 int fs_open(const char *name, int mode);
 int fs_close(int fd);

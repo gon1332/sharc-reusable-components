@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['new_5fline',['new_line',['../shell_8h.html#af93e6740b9151535717e32c384cce731',1,'SHELL_CONTEXT']]],
-  ['num_5fhistories',['num_histories',['../shell_8h.html#a12620b5c9a19279677a1b5b03297be46',1,'SHELL_CONTEXT']]]
+  ['max_5fhistories_0',['max_histories',['../shell_8h.html#ae3934f4b6199ac3363580f4506f518d8',1,'SHELL_CONTEXT']]]
 ];

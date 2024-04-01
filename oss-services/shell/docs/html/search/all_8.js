@@ -1,4 +1,26 @@
 var searchData=
 [
-  ['t',['t',['../shell_8h.html#a9e8263a8eb5eaab159d886eade46ebb8',1,'SHELL_CONTEXT']]]
+  ['shell_20index_20page_0',['Shell Index Page',['../index.html',1,'']]],
+  ['shell_2eh_1',['shell.h',['../shell_8h.html',1,'']]],
+  ['shell_5fcalloc_2',['SHELL_CALLOC',['../shell_8h.html#a003ea4e1faf77e761d5709bb0022e066',1,'shell.h']]],
+  ['shell_5fcolumns_3',['SHELL_COLUMNS',['../shell_8h.html#a3aa0f42565fbcada0bdb70023ac709cb',1,'shell.h']]],
+  ['shell_5fcontext_4',['shell_context',['../shell_8h.html#structSHELL__CONTEXT',1,'SHELL_CONTEXT'],['../shell_8h.html#aa116cdf45440ff4b75664dbb6e00a5d5',1,'SHELL_CONTEXT:&#160;shell.h']]],
+  ['shell_5fdeinit_5',['shell_deinit',['../shell_8h.html#a386936bfe0f17ed6acd01ef97521fb96',1,'shell.h']]],
+  ['shell_5ferrmsg_6',['SHELL_ERRMSG',['../shell_8h.html#a14923619f61c0115d066f82b675fd66a',1,'shell.h']]],
+  ['shell_5fexec_7',['shell_exec',['../shell_8h.html#a1eb95849b27631622c1c9b3d4d4d8b37',1,'shell.h']]],
+  ['shell_5ffree_8',['SHELL_FREE',['../shell_8h.html#a0256b2009ddff84cf01bd36ef7a87b2a',1,'shell.h']]],
+  ['shell_5finit_9',['shell_init',['../shell_8h.html#a29f189052729df18ba66edb6a2cb1e33',1,'shell.h']]],
+  ['shell_5flines_10',['SHELL_LINES',['../shell_8h.html#a1b8d1f28d3d6c17f28b151166dd4f277',1,'shell.h']]],
+  ['shell_5fmalloc_11',['SHELL_MALLOC',['../shell_8h.html#a4f5d4aa1e796eac891c1c1d1e668d92e',1,'shell.h']]],
+  ['shell_5fmax_5fargs_12',['SHELL_MAX_ARGS',['../shell_8h.html#a0800d9fb741c785d0601f0c3d7125f40',1,'shell.h']]],
+  ['shell_5fmax_5fhistories_13',['SHELL_MAX_HISTORIES',['../shell_8h.html#a49038f1dbe9fc9fb54f006d109ce740e',1,'shell.h']]],
+  ['shell_5fmax_5fline_5flen_14',['SHELL_MAX_LINE_LEN',['../shell_8h.html#ad0b17afabe98810b277dfa5e433b8d37',1,'shell.h']]],
+  ['shell_5fmode_5fblocking_15',['SHELL_MODE_BLOCKING',['../shell_8h.html#a14c586a0631276c2e980da6814a8a272a0525934c93c435d111a27c0dc399d998',1,'shell.h']]],
+  ['shell_5fmode_5fnon_5fblocking_16',['SHELL_MODE_NON_BLOCKING',['../shell_8h.html#a14c586a0631276c2e980da6814a8a272ad0a1de7fb8ef30a87e00e11f331958a3',1,'shell.h']]],
+  ['shell_5fpoll_17',['shell_poll',['../shell_8h.html#a6a6220ef5e53450b34fd0f942946e7ae',1,'shell.h']]],
+  ['shell_5fprompt_18',['SHELL_PROMPT',['../shell_8h.html#aaa60ca995565b799bb958c806e933665',1,'shell.h']]],
+  ['shell_5fstart_19',['shell_start',['../shell_8h.html#a3410239dd7181a1245131a3d8695349e',1,'shell.h']]],
+  ['shell_5fstrdup_20',['SHELL_STRDUP',['../shell_8h.html#a8e19ee524913ff4eadf7d920f43bf080',1,'shell.h']]],
+  ['shell_5fstrndup_21',['SHELL_STRNDUP',['../shell_8h.html#abcbf3462dc7d702184b72ba2aca99223',1,'shell.h']]],
+  ['shell_5fwelcomemsg_22',['SHELL_WELCOMEMSG',['../shell_8h.html#a05ec637c116577ab14984c13559bd7e9',1,'shell.h']]]
 ];

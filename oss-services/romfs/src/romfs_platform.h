@@ -6,6 +6,7 @@
    #include <sys/types.h>
    #include <unistd.h>
    #include <fcntl.h>
+   #include <stdint.h>
 #else
    #include "local_fcntl.h"
    #include "local_errno.h"
@@ -40,7 +41,7 @@ int platform_init(const FLASH_INFO *fi);
 // Internal flash erase/write functions
 // Currently used by WOFS
 
-u32 platform_flash_get_first_free_block_address( u32 *psect );
+uintptr_t platform_flash_get_first_free_block_address( u32 *psect );
 u32 platform_flash_get_sector_of_address( u32 addr );
 u32 platform_flash_write( const void *from, u32 toaddr, u32 size );
 u32 platform_s_flash_write( const void *from, u32 toaddr, u32 size );

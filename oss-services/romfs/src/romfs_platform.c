@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 #include "romfs_platform.h"
 
 #include "romfs_cfg.h"
@@ -29,7 +31,7 @@ u32 platform_flash_read( u32 fromaddr, void *toaddr, u32 size )
     return(result);
 }
 
-u32 platform_flash_get_first_free_block_address( u32 *psect )
+uintptr_t platform_flash_get_first_free_block_address( u32 *psect )
 {
     u32 address;
     address = ROMFS_FS_START_ADDRESS;

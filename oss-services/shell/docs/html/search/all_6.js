@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['p_5fshell_5fhandler',['p_shell_handler',['../shell_8h.html#aec6b452ec7f198562cef9adb518f9f1f',1,'shell.h']]],
-  ['plen',['plen',['../shell_8h.html#ad9ce4f0ceab5423f19de4f85b2f5f1aa',1,'SHELL_CONTEXT']]],
-  ['pos',['pos',['../shell_8h.html#a01b0193713c1843b82f097c1e9a21ffd',1,'SHELL_CONTEXT']]]
+  ['new_5fline_0',['new_line',['../shell_8h.html#af93e6740b9151535717e32c384cce731',1,'SHELL_CONTEXT']]],
+  ['num_5fhistories_1',['num_histories',['../shell_8h.html#a12620b5c9a19279677a1b5b03297be46',1,'SHELL_CONTEXT']]]
 ];

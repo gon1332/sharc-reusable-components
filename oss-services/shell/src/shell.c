@@ -1,4 +1,7 @@
-// SAM shell
+/*
+ * This code has been modified by Analog Devices, Inc.
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

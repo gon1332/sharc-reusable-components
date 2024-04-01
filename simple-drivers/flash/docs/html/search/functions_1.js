@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mt25q_5fclose',['mt25q_close',['../mt25ql512_8h.html#af6984f4a87c2d7951bf7eac06e79cb32',1,'mt25ql512.h']]],
-  ['mt25q_5fopen',['mt25q_open',['../mt25ql512_8h.html#aeca1dfe05f753824cb11b8e72d87ab4e',1,'mt25ql512.h']]]
+  ['is25lp_5fclose_0',['is25lp_close',['../is25lp512_8h.html#a662b26b02ab5936eedd7e58de01432e8',1,'is25lp512.h']]],
+  ['is25lp_5fopen_1',['is25lp_open',['../is25lp512_8h.html#a4a6f654473c377ea01403726ed8a2b4d',1,'is25lp512.h']]]
 ];

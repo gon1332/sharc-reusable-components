@@ -16,8 +16,13 @@ of the popular FatFs FAT filesystem.
 ## FreeRTOSv10.x.x-ARM
 
 The `FreeRTOSv10.x.x-ARM` directory contains a cleaned-up version of the
-ADI port of FreeRTOS for the SC5xx ARM core.q  Some minor bugs are fixed and
+ADI port of FreeRTOS for the SC5xx A5 ARM core.  Some minor bugs are fixed and
 enhancements made.
+
+## FreeRTOSv10.x.x-ARM-A55
+
+The `FreeRTOSv10.x.x-ARM` directory contains a cleaned-up version of the
+ADI port of FreeRTOS for the SC5xx A55 ARM core.
 
 ## FreeRTOSv10.x.x-SHARC
 
@@ -38,6 +43,11 @@ system level debugging and logging.
 
 The `libtelnet` directory contains an telnet option negotiation library.
 Original source from [libtelnet](https://github.com/seanmiddleditch/libtelnet).
+
+## kilo
+
+The `kilo` directory contains a small text editor.
+Original source from [kilo](https://github.com/antirez/kilo).
 
 ## lwIP
 
@@ -82,7 +92,15 @@ the eLua project.  This version has the ability to easily add project
 specific commands.
 
 # spiffs
-The `spiffs` directory contains the SPIFFS filesystem
+
+The `spiffs` directory contains the SPIFFS filesystem.  See the
+[mksipffs](https://github.com/igrr/mkspiffs) project for a utility to
+build off-line filesystems.
+
+# ssd1306
+
+The `ssd1306` directory contains a simple-driver compatible version of
+the SSD1306 driver library used to drive 128x64 I2C LCD displays.
 
 ## tftp-server
 

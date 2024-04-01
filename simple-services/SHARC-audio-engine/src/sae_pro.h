@@ -59,8 +59,6 @@ SAE_CORE_IDX sae_getMsgBufferSrcCoreIdx(SAE_MSG_BUFFER *msg);
  *
  * @param [in]  msg       A pointer to an SAE_MSG_BUFFER
  * @param [in]  type      The type of message
- *
- * @return  None
  ******************************************************************/
 void sae_setMsgBufferType(SAE_MSG_BUFFER *msg, uint8_t type);
 
