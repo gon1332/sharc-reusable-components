@@ -1,0 +1,12 @@
+*-------------------------*
+*  OSS Traceability Info  *
+*-------------------------*
+
+Function Name = c-timestamp
+Source Component Name = c-timestamp
+Source Location = https://github.com/chansen/c-timestamp
+Source Version = b205c40
+Source Origin ID = github:c-timestamp:b205c40
+Source Usage = Source Code
+Source License = BSD 2-clause “Simplified” License
+Purpose = Timestamp generation and parsing

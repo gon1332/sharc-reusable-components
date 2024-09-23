@@ -26,17 +26,9 @@ The `buffer-track` directory contains a component capable of accurately tracking
 
 The `FreeRTOS-cpu-load` directory contains a basic CPU load calculation module for FreeRTOS.
 
-## a2b-ad2425
-
-The `a2b-ad2425` directory contains a service to configure an A2B network using an AD2425 transceiver.  WARNING: This module is depricated.  Use the 'adi-a2b-cmdlist' module instead.
-
 ## adi-a2b-cmdlist
 
 The `adi-a2b-cmdlist` directory contains a service to configure an A2B network from a SigmaStudio command list export header.
-
-## uac2-soundcard
-
-The `uac2-soundcard` directory contains a simple run-time configurable UAC2 soundcard implemetation layered on top of the CLD UAC 2.0 library.
 
 ## uac2-cdc-soundcard
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2024 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -72,7 +72,8 @@ volatile uint32_t *SPORT_CTL[SPORT_END] = {
     pREG_SPORT1_CTL_A, pREG_SPORT1_CTL_B,
     pREG_SPORT2_CTL_A, pREG_SPORT2_CTL_B,
     pREG_SPORT3_CTL_A, pREG_SPORT3_CTL_B,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_SPORT4_CTL_A, pREG_SPORT4_CTL_B,
     pREG_SPORT5_CTL_A, pREG_SPORT5_CTL_B,
@@ -86,7 +87,8 @@ volatile uint32_t *SPORT_MCTL[SPORT_END] = {
     pREG_SPORT1_MCTL_A, pREG_SPORT1_MCTL_B,
     pREG_SPORT2_MCTL_A, pREG_SPORT2_MCTL_B,
     pREG_SPORT3_MCTL_A, pREG_SPORT3_MCTL_B,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_SPORT4_MCTL_A, pREG_SPORT4_MCTL_B,
     pREG_SPORT5_MCTL_A, pREG_SPORT5_MCTL_B,
@@ -100,7 +102,8 @@ volatile uint32_t *SPORT_CS0[SPORT_END] = {
     pREG_SPORT1_CS0_A, pREG_SPORT1_CS0_B,
     pREG_SPORT2_CS0_A, pREG_SPORT2_CS0_B,
     pREG_SPORT3_CS0_A, pREG_SPORT3_CS0_B,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_SPORT4_CS0_A, pREG_SPORT4_CS0_B,
     pREG_SPORT5_CS0_A, pREG_SPORT5_CS0_B,
@@ -114,7 +117,8 @@ volatile uint32_t *SPORT_DIV[SPORT_END] = {
     pREG_SPORT1_DIV_A, pREG_SPORT1_DIV_B,
     pREG_SPORT2_DIV_A, pREG_SPORT2_DIV_B,
     pREG_SPORT3_DIV_A, pREG_SPORT3_DIV_B,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_SPORT4_DIV_A, pREG_SPORT4_DIV_B,
     pREG_SPORT5_DIV_A, pREG_SPORT5_DIV_B,
@@ -129,7 +133,8 @@ volatile uint32_t *DMA_ADDRSTART[SPORT_END] = {
     VUP(pREG_DMA2_ADDRSTART), VUP(pREG_DMA3_ADDRSTART),
     VUP(pREG_DMA4_ADDRSTART), VUP(pREG_DMA5_ADDRSTART),
     VUP(pREG_DMA6_ADDRSTART), VUP(pREG_DMA7_ADDRSTART),
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     VUP(pREG_DMA10_ADDRSTART), VUP(pREG_DMA11_ADDRSTART),
     VUP(pREG_DMA12_ADDRSTART), VUP(pREG_DMA13_ADDRSTART),
@@ -143,7 +148,8 @@ volatile uint32_t *DMA_DSCPTR_NXT[SPORT_END] = {
     VUP(pREG_DMA2_DSCPTR_NXT), VUP(pREG_DMA3_DSCPTR_NXT),
     VUP(pREG_DMA4_DSCPTR_NXT), VUP(pREG_DMA5_DSCPTR_NXT),
     VUP(pREG_DMA6_DSCPTR_NXT), VUP(pREG_DMA7_DSCPTR_NXT),
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     VUP(pREG_DMA10_DSCPTR_NXT), VUP(pREG_DMA11_DSCPTR_NXT),
     VUP(pREG_DMA12_DSCPTR_NXT), VUP(pREG_DMA13_DSCPTR_NXT),
@@ -157,7 +163,8 @@ volatile uint32_t *DMA_XCNT[SPORT_END] = {
     pREG_DMA2_XCNT, pREG_DMA3_XCNT,
     pREG_DMA4_XCNT, pREG_DMA5_XCNT,
     pREG_DMA6_XCNT, pREG_DMA7_XCNT,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_DMA10_XCNT, pREG_DMA11_XCNT,
     pREG_DMA12_XCNT, pREG_DMA13_XCNT,
@@ -171,7 +178,8 @@ volatile int32_t *DMA_XMOD[SPORT_END] = {
     pREG_DMA2_XMOD, pREG_DMA3_XMOD,
     pREG_DMA4_XMOD, pREG_DMA5_XMOD,
     pREG_DMA6_XMOD, pREG_DMA7_XMOD,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_DMA10_XMOD, pREG_DMA11_XMOD,
     pREG_DMA12_XMOD, pREG_DMA13_XMOD,
@@ -185,7 +193,8 @@ volatile uint32_t *DMA_CFG[SPORT_END] = {
     pREG_DMA2_CFG, pREG_DMA3_CFG,
     pREG_DMA4_CFG, pREG_DMA5_CFG,
     pREG_DMA6_CFG, pREG_DMA7_CFG,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_DMA10_CFG, pREG_DMA11_CFG,
     pREG_DMA12_CFG, pREG_DMA13_CFG,
@@ -199,7 +208,8 @@ volatile uint32_t *DMA_STAT[SPORT_END] = {
     pREG_DMA2_STAT, pREG_DMA3_STAT,
     pREG_DMA4_STAT, pREG_DMA5_STAT,
     pREG_DMA6_STAT, pREG_DMA7_STAT,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     pREG_DMA10_STAT, pREG_DMA11_STAT,
     pREG_DMA12_STAT, pREG_DMA13_STAT,
@@ -209,7 +219,7 @@ volatile uint32_t *DMA_STAT[SPORT_END] = {
 };
 
 volatile uint32_t *SPU_SECUREP[SPORT_END] = {
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
     pREG_SPU0_SECUREP49, pREG_SPU0_SECUREP50,
     pREG_SPU0_SECUREP51, pREG_SPU0_SECUREP52,
     pREG_SPU0_SECUREP53, pREG_SPU0_SECUREP54,
@@ -251,7 +261,8 @@ uint16_t SPORT_DMA_IRQ_ID[SPORT_END] = {
     INTR_SPORT1_A_DMA, INTR_SPORT1_B_DMA,
     INTR_SPORT2_A_DMA, INTR_SPORT2_B_DMA,
     INTR_SPORT3_A_DMA, INTR_SPORT3_B_DMA,
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     INTR_SPORT4_A_DMA, INTR_SPORT4_B_DMA,
     INTR_SPORT5_A_DMA, INTR_SPORT5_B_DMA,

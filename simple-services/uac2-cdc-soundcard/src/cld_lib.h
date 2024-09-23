@@ -16,6 +16,82 @@
     #include "cld_sc58x_audio_2_0_w_cdc_lib.h"
     #include <adi/cortex-a5/sys/ADSP_SC589_cdef.h>
     #include <sys/ADSP_SC589.h>
+#elif defined(__ADSPSC594_FAMILY__)
+    #include "cld_sc594_audio_2_0_w_cdc_lib.h"
+
+    /* CDC macros */
+    #define CLD_SC58x_CDC_Line_Coding \
+        CLD_CDC_Line_Coding
+    #define CLD_SC58x_CDC_Notification_Endpoint_Params \
+        CLD_Serial_Data_Bulk_Endpoint_Params
+    #define CLD_SC58x_CDC_Control_Line_State \
+        CLD_CDC_Control_Line_State
+    #define CLD_SC58x_CDC_LINE_CODING_1_STOP_BITS \
+        CLD_CDC_LINE_CODING_1_STOP_BITS
+    #define CLD_SC58x_CDC_LINE_CODING_PARITY_NONE \
+        CLD_CDC_LINE_CODING_PARITY_NONE
+    #define CLD_SC58x_CDC_LINE_CODING_NUM_DATA_BITS_8 \
+        CLD_CDC_LINE_CODING_NUM_DATA_BITS_8
+    #define cld_sc58x_cdc_lib_transmit_serial_data \
+        cld_cdc_lib_transmit_serial_data
+
+    /* UAC2 macros */
+    #define CLD_SC58x_Audio_2_0_Audio_Stream_Data_Endpoint_Descriptor \
+        CLD_Audio_2_0_Audio_Stream_Data_Endpoint_Descriptor
+    #define CLD_SC58x_Audio_2_0_Stream_Interface_Params \
+        CLD_Audio_2_0_Stream_Interface_Params
+    #define CLD_SC58x_Audio_2_0_Rate_Feedback_Params \
+        CLD_Audio_2_0_Rate_Feedback_Params
+    #define CLD_SC58x_Audio_2_0_Cmd_Req_Parameters \
+        CLD_Audio_2_0_Cmd_Req_Parameters
+    #define cld_sc58x_audio_2_0_w_cdc_lib_transmit_audio_rate_feedback_data \
+        cld_audio_2_0_lib_transmit_audio_rate_feedback_data
+    #define cld_sc58x_audio_2_0_w_cdc_lib_transmit_audio_data \
+        cld_audio_2_0_lib_transmit_audio_data
+    #define CLD_SC58x_Audio_2_0_w_CDC_Lib_Init_Params \
+        CLD_SC594_Audio_2_0_w_CDC_Lib_Init_Params
+    #define cld_sc58x_audio_2_0_w_cdc_lib_init \
+        cld_sc594_audio_2_0_w_cdc_lib_init
+    #define cld_sc58x_audio_2_0_w_cdc_lib_main \
+        cld_sc594_audio_2_0_w_cdc_lib_main
+#elif defined(__ADSPSC598_FAMILY__)
+    #include "cld_sc598_audio_2_0_w_cdc_lib.h"
+
+    /* CDC macros */
+    #define CLD_SC58x_CDC_Line_Coding \
+        CLD_CDC_Line_Coding
+    #define CLD_SC58x_CDC_Notification_Endpoint_Params \
+        CLD_Serial_Data_Bulk_Endpoint_Params
+    #define CLD_SC58x_CDC_Control_Line_State \
+        CLD_CDC_Control_Line_State
+    #define CLD_SC58x_CDC_LINE_CODING_1_STOP_BITS \
+        CLD_CDC_LINE_CODING_1_STOP_BITS
+    #define CLD_SC58x_CDC_LINE_CODING_PARITY_NONE \
+        CLD_CDC_LINE_CODING_PARITY_NONE
+    #define CLD_SC58x_CDC_LINE_CODING_NUM_DATA_BITS_8 \
+        CLD_CDC_LINE_CODING_NUM_DATA_BITS_8
+    #define cld_sc58x_cdc_lib_transmit_serial_data \
+        cld_cdc_lib_transmit_serial_data
+
+    /* UAC2 macros */
+    #define CLD_SC58x_Audio_2_0_Audio_Stream_Data_Endpoint_Descriptor \
+        CLD_Audio_2_0_Audio_Stream_Data_Endpoint_Descriptor
+    #define CLD_SC58x_Audio_2_0_Stream_Interface_Params \
+        CLD_Audio_2_0_Stream_Interface_Params
+    #define CLD_SC58x_Audio_2_0_Rate_Feedback_Params \
+        CLD_Audio_2_0_Rate_Feedback_Params
+    #define CLD_SC58x_Audio_2_0_Cmd_Req_Parameters \
+        CLD_Audio_2_0_Cmd_Req_Parameters
+    #define cld_sc58x_audio_2_0_w_cdc_lib_transmit_audio_rate_feedback_data \
+        cld_audio_2_0_lib_transmit_audio_rate_feedback_data
+    #define cld_sc58x_audio_2_0_w_cdc_lib_transmit_audio_data \
+        cld_audio_2_0_lib_transmit_audio_data
+    #define CLD_SC58x_Audio_2_0_w_CDC_Lib_Init_Params \
+        CLD_SC598_Audio_2_0_w_CDC_Lib_Init_Params
+    #define cld_sc58x_audio_2_0_w_cdc_lib_init \
+        cld_sc598_audio_2_0_w_cdc_lib_init
+    #define cld_sc58x_audio_2_0_w_cdc_lib_main \
+        cld_sc598_audio_2_0_w_cdc_lib_main
 #else
     #include "cld_sc57x_audio_2_0_w_cdc_lib.h"
     #include <adi/cortex-a5/sys/ADSP_SC573_cdef.h>

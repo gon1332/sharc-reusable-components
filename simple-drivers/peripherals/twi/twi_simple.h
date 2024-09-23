@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2024 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -18,8 +18,8 @@
  *     - Blocking transfers
  *
  * @file      twi_simple.h
- * @version   1.0.1
- * @copyright 2023 Analog Devices, Inc.  All rights reserved.
+ * @version   1.0.2
+ * @copyright 2024 Analog Devices, Inc.  All rights reserved.
  *
 */
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2024 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -471,7 +471,7 @@ SPI_SIMPLE_RESULT spi_init(void)
             spi->pREG_TX_DMA_XCNT       = pREG_DMA22_XCNT;
             spi->pREG_TX_DMA_XMOD       = pREG_DMA22_XMOD;
             spi->pREG_TX_DMA_STAT       = pREG_DMA22_STAT;
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
             spi->pREG_TX_DMA_SPU_SECURE = pREG_SPU0_SECUREP73;
 #elif defined(__ADSPSC573_FAMILY__)
             spi->pREG_TX_DMA_SPU_SECURE = pREG_SPU0_SECUREP62;
@@ -487,7 +487,7 @@ SPI_SIMPLE_RESULT spi_init(void)
             spi->pREG_RX_DMA_XCNT       = pREG_DMA23_XCNT;
             spi->pREG_RX_DMA_XMOD       = pREG_DMA23_XMOD;
             spi->pREG_RX_DMA_STAT       = pREG_DMA23_STAT;
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
             spi->pREG_RX_DMA_SPU_SECURE = pREG_SPU0_SECUREP74;
 #elif defined(__ADSPSC573_FAMILY__)
             spi->pREG_RX_DMA_SPU_SECURE = pREG_SPU0_SECUREP63;
@@ -525,7 +525,7 @@ SPI_SIMPLE_RESULT spi_init(void)
             spi->pREG_TX_DMA_XCNT       = pREG_DMA24_XCNT;
             spi->pREG_TX_DMA_XMOD       = pREG_DMA24_XMOD;
             spi->pREG_TX_DMA_STAT       = pREG_DMA24_STAT;
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
             spi->pREG_TX_DMA_SPU_SECURE = pREG_SPU0_SECUREP75;
 #elif defined(__ADSPSC573_FAMILY__)
             spi->pREG_TX_DMA_SPU_SECURE = pREG_SPU0_SECUREP64;
@@ -542,7 +542,7 @@ SPI_SIMPLE_RESULT spi_init(void)
             spi->pREG_RX_DMA_XCNT       = pREG_DMA25_XCNT;
             spi->pREG_RX_DMA_XMOD       = pREG_DMA25_XMOD;
             spi->pREG_RX_DMA_STAT       = pREG_DMA25_STAT;
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
             spi->pREG_RX_DMA_SPU_SECURE = pREG_SPU0_SECUREP76;
 #elif defined(__ADSPSC573_FAMILY__)
             spi->pREG_RX_DMA_SPU_SECURE = pREG_SPU0_SECUREP65;
@@ -580,7 +580,7 @@ SPI_SIMPLE_RESULT spi_init(void)
             spi->pREG_TX_DMA_XCNT       = pREG_DMA26_XCNT;
             spi->pREG_TX_DMA_XMOD       = pREG_DMA26_XMOD;
             spi->pREG_TX_DMA_STAT       = pREG_DMA26_STAT;
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
             spi->pREG_TX_DMA_SPU_SECURE = pREG_SPU0_SECUREP77;
 #elif defined(__ADSPSC573_FAMILY__)
             spi->pREG_TX_DMA_SPU_SECURE = pREG_SPU0_SECUREP73;
@@ -597,7 +597,7 @@ SPI_SIMPLE_RESULT spi_init(void)
             spi->pREG_RX_DMA_XCNT       = pREG_DMA27_XCNT;
             spi->pREG_RX_DMA_XMOD       = pREG_DMA27_XMOD;
             spi->pREG_RX_DMA_STAT       = pREG_DMA27_STAT;
-#if defined(__ADSP21569_FAMILY__)
+#if defined(__ADSP21568_FAMILY__) || defined(__ADSP21569_FAMILY__)
             spi->pREG_RX_DMA_SPU_SECURE = pREG_SPU0_SECUREP78;
 #elif defined(__ADSPSC573_FAMILY__)
             spi->pREG_RX_DMA_SPU_SECURE = pREG_SPU0_SECUREP74;
@@ -816,7 +816,9 @@ static inline void *local_to_system_addr(void *x) { return x; }
 static void spi_setup_dma(sSPI *spi, uint16_t len, void *rx, void *tx)
 {
     sSPIPeriph *device = spi->device;
+#if defined(__ADSPARM__)
     uint8_t *flushStart, *flushEnd;
+#endif
     uint32_t stride;
     uint32_t cfg;
 

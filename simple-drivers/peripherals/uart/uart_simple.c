@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2024 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -282,7 +282,7 @@ UART_SIMPLE_RESULT uart_read(sUART *uart, uint8_t *in, uint8_t *inLen)
     }
     UART_EXIT_CRITICAL();
     if (empty) {
-        rtosResult = xSemaphoreTake(uart->portRxBlock, uart->readTimeout);
+        rtosResult = xSemaphoreTake(uart->portRxBlock, uart->rtosReadTimeout);
         if (rtosResult == pdFALSE) {
             UART_ENTER_CRITICAL();
             if (uart->rxSleeping) {
@@ -531,7 +531,7 @@ UART_SIMPLE_RESULT uart_setTimeouts(sUART *uartHandle,
         } else if (uart->writeTimeout == UART_SIMPLE_TIMEOUT_NONE) {
             uart->rtosWriteTimeout = 0;
         } else {
-            uart->rtosWriteTimeout = pdMS_TO_TICKS(uart->readTimeout);
+            uart->rtosWriteTimeout = pdMS_TO_TICKS(uart->writeTimeout);
         }
 #endif
     }
@@ -721,6 +721,7 @@ UART_SIMPLE_RESULT uart_init(void)
 
             uart->UART_STATUS_IRQ_ID    = INTR_UART1_STAT;
         }
+#if !defined(__ADSP21568_FAMILY__)
         else if (port == UART2) {
             uart->pREG_UART_CTL       = (volatile uint32_t *) pREG_UART2_CTL;
             uart->pREG_UART_CLK       = (volatile uint32_t *) pREG_UART2_CLK;
@@ -733,6 +734,7 @@ UART_SIMPLE_RESULT uart_init(void)
 
             uart->UART_STATUS_IRQ_ID    = INTR_UART2_STAT;
         }
+#endif
 
 #ifdef FREE_RTOS
 #if 1

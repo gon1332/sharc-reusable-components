@@ -77,12 +77,6 @@ static const SHELL_HELP_DATA shell_help_data[] =
 // Built-in help functions
 // ****************************************************************************
 
-// Shows the help for the given command
-void shellh_show_help( SHELL_CONTEXT *ctx, const char *cmd, const char *helptext )
-{
-  printf( "Usage: %s %s", cmd, helptext );
-}
-
 // 'Help' help data
 const char shell_help_help[] = "[<command>]\n"
   "  [<command>] - the command to get help on.\n"
@@ -147,7 +141,7 @@ void shell_ver( SHELL_CONTEXT *ctx, int argc, char **argv )
     printf( "Invalid arguments. Type help [<command>] for usage.\n" );
     return;
   }
-  printf( SHELL_WELCOMEMSG, STR_VERSION, __DATE__, __TIME__ );
+  printf( SHELL_WELCOMEMSG, STR_VERSION, __DATE__, __TIME__);
 }
 
 // ****************************************************************************
@@ -306,14 +300,22 @@ void shell_exec( SHELL_CONTEXT *ctx, const char *command )
 {
     char *cmd;
     unsigned len;
+    int interactive;
 
     // Make a copy of the command since it gets overwritten
     len = strlen(command) + 1;
     cmd = SHELL_MALLOC(len);
     memcpy(cmd, command, len);
 
+    // Save interactive status; set non-interactive
+    interactive = ctx->interactive;
+    ctx->interactive = 0;
+
     // Execute the command
     shellh_execute_command(ctx, cmd, 0);
+
+    // Restore interactive status
+    ctx->interactive = interactive;
 
     // Free the copy memory
     SHELL_FREE(cmd);
@@ -321,6 +323,8 @@ void shell_exec( SHELL_CONTEXT *ctx, const char *command )
 
 void shell_start( SHELL_CONTEXT *ctx )
 {
+  term_reset_mode(&ctx->t);
+  term_sync_size(&ctx->t);
   printf("\n");
   shellh_execute_command(ctx, "ver", 0);
   shell_poll(ctx);
@@ -361,6 +365,7 @@ int shell_init( SHELL_CONTEXT *ctx, p_term_out term_out, p_term_in term_in, int 
     memset(ctx, 0, sizeof(*ctx));
     ctx->blocking = blocking;
     ctx->usr = usr;
+    ctx->interactive = 1;
     shell_platform_init(ctx, term_out, term_in);
     linenoise_init(ctx);
     return 1;

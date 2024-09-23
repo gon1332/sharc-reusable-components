@@ -1,6 +1,5 @@
 /*!
- * @brief  Example configuration file enabling the umm_malloc heap
- *         allocation module.
+ * @brief  Example shell configuration file.
  *
  * @file      shell_cfg.h
  * @version   1.0.0
@@ -23,7 +22,7 @@
  *
  */
 
-/*! @cond */
+#include <stdlib.h>
 
 #define SHELL_MAX_ARGS          10
 #define SHELL_WELCOMEMSG        "Shell %s\n"
@@ -38,7 +37,5 @@
 #define SHELL_FREE              free
 #define SHELL_STRDUP            shell_strdup
 #define SHELL_STRNDUP           shell_strndup
-
-/*! @endcond example-config */
 
 #endif

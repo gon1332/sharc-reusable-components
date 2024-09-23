@@ -74,12 +74,7 @@ static void telnet_terminate(TELNET_CONTEXT *t)
 static void telnet_term_out(char data, void *usr)
 {
     TELNET_CONTEXT *t = (TELNET_CONTEXT *)usr;
-    if (data == '\n') {
-        char crlf[] = "\r\n";
-        telnet_send(t->libtelnet, crlf, sizeof(crlf)-1);
-    } else {
-        telnet_send(t->libtelnet, &data, sizeof(data));
-    }
+    telnet_send(t->libtelnet, &data, sizeof(data));
 }
 
 void libtelnetEvent(telnet_t *telnet, telnet_event_t *event, void *user_data)
@@ -177,7 +172,7 @@ portTASK_FUNCTION(telnetClientTask, pvParameters)
 
     /* Create a libtelnet context */
     t->libtelnet = telnet_init(
-        telopts,libtelnetEvent, /*0*/ TELNET_FLAG_NVT_EOL, (void *)t);
+        telopts, libtelnetEvent, /*0*/ TELNET_FLAG_NVT_EOL, (void *)t);
 
     /* We will echo */
     telnet_negotiate(t->libtelnet, TELNET_WILL, TELNET_TELOPT_ECHO);

@@ -3,10 +3,10 @@
 *-------------------------*
 
 Function Name = xmodem
-Source Component Name = elua's elua
-Source Location = https://github.com/elua/elua/
-Source Version = v0.9
-Source Origin ID = github: elua/elua:v0.9
+Source Component Name = xmodem
+Source Location = https://github.com/BAN-AI-Communications/xmodem
+Source Version = 966d8fe
+Source Origin ID = github: xmodem:966d8fe
 Source Usage = Source Code
-Source License = MIT
+Source License = BSD-3-Clause
 Purpose = <EMPTY>

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This component implements an xmodem receive protocol.  It was borrowed from the eLua project and enhanced to allow more flexibility handling received data.
+This component implements the x/ymodem send/receive protocol.
 
 ## Required components
 
@@ -17,159 +17,173 @@ This component implements an xmodem receive protocol.  It was borrowed from the 
 - Copy the 'src' directory contents into an appropriate source directory in the host project.
 - Copy the 'inc' directory contents into an approporiate configuration include directory in the host project.
 
-## Run
-
-- Call `xmodem_receive()` whenever required.
-
-## Initialization example
-
-The example below was taken from a non-RTOS implementation and busy spins waiting for characters to arrive.  A better approach would be to use an RTOS and configure the UART driver to block for requested timeout.
+## Send / Receive example code
 
 ```C
-/***********************************************************************
- * Variables
- **********************************************************************/
- sUART *stdioUartHandle = NULL;
+typedef struct XMODEM_STATE {
+    SHELL_CONTEXT *ctx;
+} XMODEM_STATE;
 
-/***********************************************************************
- * XMODEM character I/O functions realized with a blocking uart write
- * and a non-blocking uart read with integrated timeout.
- **********************************************************************/
-static void xmodemPutChar(unsigned char c, void *usr)
+static void shell_xmodem_putchar(int c, void *usr)
 {
-    uint8_t writeLen = 1;
-    uart_write(stdioUartHandle, &c, &writeLen);
+    XMODEM_STATE *x = (XMODEM_STATE *)usr;
+    SHELL_CONTEXT *ctx = x->ctx;
+    TERM_STATE *t = &ctx->t;
+
+    term_putch(t, c);
 }
 
-static int xmodemGetChar(int timeout, void *usr)
+static int shell_xmodem_getchar(int timeout, void *usr)
 {
-    uint8_t readLen;
-    UART_SIMPLE_RESULT uartResult;
-    unsigned start;
-    unsigned char c;
-
-    timeout /= 1000;
-
-    uart_setTimeouts(stdioUartHandle,
-            UART_SIMPLE_TIMEOUT_NONE, UART_SIMPLE_TIMEOUT_NO_CHANGE);
-
-    start = getTime();
-    do {
-        readLen = 1;
-        uartResult = uart_read(stdioUartHandle, &c, &readLen);
-    } while ((readLen == 0) && (elapsedTime(start) < timeout));
-
-    if (readLen == 0) {
-        return(-1);
-    }
-
-    return(c);
-}
-
-int main(int argc, char **argv)
-{
-    UART_SIMPLE_RESULT uartResult;
-
-    /* Initialize GPIO */
-    gpio_init();
-
-    /* Initialize the SEC */
-    adi_sec_Init();
-
-    ...
-    ...
-    ...
-
-    /* Initialize the simple UART driver */
-    uartResult = uart_init();
-
-    /* Open UART0 as the console device (115200,N,8,1) */
-    uartResult = uart_open(UART0, &stdioUartHandle);
-    uart_setProtocol(stdioUartHandle,
-        UART_SIMPLE_BAUD_115200, UART_SIMPLE_8BIT,
-        UART_SIMPLE_PARITY_DISABLE, UART_SIMPLE_STOP_BITS1
-    );
-
-    /* Register the UART stdio driver with the console device */
-    uart_stdio_init(stdioUartHandle);
-
-    ...
-    ...
-    ...
-
-}
-```
-
-## File transfer example
-
-```C
-/***********************************************************************
- * XMODEM helper functions
- **********************************************************************/
-struct fileWriteState {
-   FILE *f;
-};
-
-int fileDataWrite(unsigned char *data, unsigned size, bool final, void *usr)
-{
-   struct fileWriteState *state = (struct fileWriteState *)usr;
-   size_t wsize;
-
-   if (size > 0) {
-      wsize = fwrite(data, sizeof( unsigned char ), size, state->f);
-      if (wsize != size) {
-         return(XMODEM_ERROR_CALLBACK);
-      }
-   }
-   return(XMODEM_ERROR_NONE);
-}
-
-static void xmodem_putchar(unsigned char c, void *usr)
-{
-    putc(data, stdout); fflush(stdout);
-}
-
-static int xmodem_getchar(int timeout, void *usr)
-{
+    XMODEM_STATE *x = (XMODEM_STATE *)usr;
+    SHELL_CONTEXT *ctx = x->ctx;
+    TERM_STATE *t = &ctx->t;
     int c;
 
-    uart_stdio_set_read_timeout(timeout / 1000);
-
-    if ((c = getc(stdin)) == EOF) {
-        return(-1);
-    }
+    c = term_getch(t, timeout);
 
     return(c);
 }
 
-void shell_recv( int argc, char **argv )
-{
-    struct fileWriteState fileState;
-    long size;
+typedef struct FILE_XFER_STATE {
+    XMODEM_STATE xmodem;
+    FILE *f;
+    void *data;
+    int size;
+} FILE_XFER_STATE;
 
-    // we've received an argument, try saving it to a file
-    if( argc == 2 )
-    {
-        fileState.f = fopen( argv[ 1 ], "w" );
-        if( fileState.f == NULL ) {
-            printf( "unable to open file %s\n", argv[ 1 ] );
-            return;
-        }
-        printf( "Waiting for file ... " );
-        size = xmodem_receive(fileDataWrite, &fileState,
-            xmodem_putchar, xmodem_getchar);
-        if (size < 0) {
-            printf( "XMODEM Error: %ld\n", size);
+void fileDataWrite(void *usr, void *data, int size)
+{
+    FILE_XFER_STATE *state = (FILE_XFER_STATE *)usr;
+    size_t wsize;
+
+    /*
+     * Need to double-buffer the data in order to strip off the
+     * trailing packet bytes at the end of an xmodem transfer.
+     */
+    if (state->data == NULL) {
+        state->data = SHELL_MALLOC(1024);
+        memcpy(state->data, data, size);
+        state->size = size;
+    } else {
+        if (data) {
+            wsize = fwrite(state->data, 1, state->size, state->f);
+            memcpy(state->data, data, size);
+            state->size = size;
         } else {
-            printf( "Received and saved as %s\n", argv[ 1 ] );
+            uint8_t *buf = (uint8_t *)state->data;
+            while (state->size && buf[state->size-1] == '\x1A') {
+               state->size--;
+            }
+            wsize = fwrite(state->data, 1, state->size, state->f);
+            if (state->data) {
+                SHELL_FREE(state->data);
+                state->data = NULL;
+            }
         }
-        fclose ( fileState.f );
     }
 }
 
+void fileDataRead(void *usr, void *data, int size)
+{
+    FILE_XFER_STATE *state = (FILE_XFER_STATE *)usr;
+    size_t rsize;
+
+    if (size > 0) {
+        rsize = fread(data, 1, size, state->f);
+    }
+}
+
+void shell_recv( SHELL_CONTEXT *ctx, int argc, char **argv )
+{
+    FILE_XFER_STATE fileState = { 0 };
+    long size;
+
+    if( argc != 2 ) {
+        printf( "Usage: recv <file>\n" );
+        return;
+    }
+
+    fileState.xmodem.ctx = ctx;
+
+    fileState.f = fopen( argv[ 1 ], "wb");
+    if( fileState.f == NULL) {
+        printf( "unable to open file %s\n", argv[ 1 ] );
+        return;
+    }
+    printf( "Prepare your terminal for XMODEM send ... " );
+    term_set_mode(&ctx->t, TERM_MODE_COOKED, 0);
+    size = XmodemReceiveCrc(fileDataWrite, &fileState, INT_MAX,
+        shell_xmodem_getchar, shell_xmodem_putchar);
+    term_set_mode(&ctx->t, TERM_MODE_COOKED, 1);
+    if (size < 0) {
+        printf( "XMODEM Error: %ld\n", size);
+    } else {
+        printf( "received and saved as %s\n", argv[ 1 ] );
+    }
+    fclose( fileState.f );
+}
+
+typedef struct YMODEM_STATE {
+    FILE_XFER_STATE state;
+    const char *fname;
+    size_t fsize;
+} YMODEM_STATE;
+
+static void ymodem_hdr(void *usr, void *xmodemBuffer, int xmodemSize)
+{
+    YMODEM_STATE *y = (YMODEM_STATE *)usr;
+    snprintf(xmodemBuffer, xmodemSize, "%s%c%u", y->fname, 0, (unsigned)y->fsize);
+}
+
+static void ymodem_end(void *xs, void *xmodemBuffer, int xmodemSize)
+{
+}
+
+void shell_send(SHELL_CONTEXT *ctx, int argc, char **argv)
+{
+    size_t size;
+    FILE *fp = NULL;
+    int ret = -1;
+    int i;
+
+    YMODEM_STATE y = {
+        .state.xmodem.ctx = ctx,
+    };
+
+    if (argc < 2) {
+        printf("Usage: %s <file1> [<file2> ...]\n", argv[0]);
+        return;
+    }
+
+    printf ("Prepare your terminal for YMODEM receive...\n");
+    term_set_mode(&ctx->t, TERM_MODE_COOKED, 0);
+    for (i = 1; i < argc; i++) {
+        fp = fopen( argv[i], "rb");
+        if (fp) {
+            fseek(fp, 0, SEEK_END);
+            size = ftell(fp);
+            fseek(fp, 0, SEEK_SET);
+            y.fname = argv[i]; y.fsize = size; y.state.f = fp;
+            ret = XmodemTransmit(ymodem_hdr, &y, 128, 0, 1,
+                shell_xmodem_getchar, shell_xmodem_putchar);
+            if (ret >= 0) {
+                ret = XmodemTransmit(fileDataRead, &y, y.fsize, 1, 0,
+                    shell_xmodem_getchar, shell_xmodem_putchar);
+            }
+            fclose(fp);
+            if (ret < 0) {
+                break;
+            }
+        }
+    }
+    if (ret >= 0) {
+        ret = XmodemTransmit(ymodem_end, &y, 128, 0, 1,
+            shell_xmodem_getchar, shell_xmodem_putchar);
+    }
+    term_set_mode(&ctx->t, TERM_MODE_COOKED, 1);
+    if (ret < 0) {
+        printf( "YMODEM Error: %ld\n", ret);
+    }
+}
 ```
-
-## Info
-
-- The `xmodem_receive()` command allocates two ~1k transfer buffers on the heap.  The heap functions can be overridden in `xmodem_cfg.h`.
-- The `xmodem_receive()` timeouts are enforced by the blocking character receive function passed through the init call.  The xmodem module itself has no sense of time.

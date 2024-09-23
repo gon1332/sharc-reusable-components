@@ -10,10 +10,6 @@ Some components are derived from Open Source (OSS) projects and have BSD, MIT, o
 
 This directory contains 3rd party proprietary packages which, in most cases, have been modified to ease integration.
 
-## adi-a2b
-
-This directory contains the A2B Stack.  The Stack is a cross-platform, scalable, A2B network discovery and life-cycle management environment designed to run on a wide array of system processors and architectures.
-
 ## adi-drivers
 
 Components in this directory are derived from existing ADI device drivers or system services.

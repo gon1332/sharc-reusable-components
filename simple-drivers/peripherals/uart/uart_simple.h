@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2023 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2024 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -46,7 +46,9 @@
 typedef enum UART_SIMPLE_PORT {
     UART0 = (0),      /**< UART port 0 */
     UART1 = (1),      /**< UART port 1 */
+#if !defined(__ADSP21568_FAMILY__)
     UART2 = (2),      /**< UART port 2 */
+#endif
     UART_END          /**< End UART ports */
 } UART_SIMPLE_PORT;
 

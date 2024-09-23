@@ -14,6 +14,13 @@
 #include <string.h>
 
 #include "shell.h"
+#include "shell_printf.h"
+
+#ifdef printf
+#undef printf
+#endif
+
+#define printf(...) shell_printf(ctx, __VA_ARGS__)
 
 /***********************************************************************
  * NOTE: New commands added here must also be added to the appropriate

@@ -1,32 +1,20 @@
-/*!
- * @brief  Example configuration file enabling the umm_malloc heap
- *         allocation module.
+/**
+ * Copyright (c) 2022 - Analog Devices Inc. All Rights Reserved.
+ * This software is proprietary and confidential to Analog Devices, Inc.
+ * and its licensors.
  *
- * @file      xmodem_cfg.h
- * @version   1.0.0
- *
-*/
+ * This software is subject to the terms and conditions of the license set
+ * forth in the project LICENSE file. Downloading, reproducing, distributing or
+ * otherwise using the software constitutes acceptance of the license. The
+ * software may not be used except as expressly authorized under the license.
+ */
 
 #ifndef _XMODEM_CFG_H
 #define _XMODEM_CFG_H
 
-/*
- * To use umm_malloc instead of the system heap functions,
- * ensure umm_malloc.h is in the project's include path and
- * set:
- *
- *  #include "umm_malloc.h"
- *
- *  #define XMODEM_MALLOC  umm_malloc
- *  #define XMODEM_FREE    umm_free
- *
- */
+#define DLY_1S      1000000
+#define MAXRETRANS  60
 
-/*! @cond */
-
-#define XMODEM_MALLOC            malloc
-#define XMODEM_FREE              free
-
-/*! @endcond example-config */
+#define XMODEM_1K
 
 #endif

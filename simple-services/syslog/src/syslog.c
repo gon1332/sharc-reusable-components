@@ -16,7 +16,50 @@
 #include <stdint.h>
 #include <ctype.h>
 
+#include "syslog_cfg.h"
 #include "syslog.h"
+
+/*!****************************************************************
+ * @brief  The maximum number of entries in the syslog FIFO
+ ******************************************************************/
+#ifndef SYSLOG_MAX_LINES
+#define SYSLOG_MAX_LINES   (1000)
+#endif
+
+/*!****************************************************************
+ * @brief  The maximum line length of a syslog entry
+ ******************************************************************/
+#ifndef SYSLOG_LINE_MAX
+#define SYSLOG_LINE_MAX    (128)
+#endif
+
+/*!****************************************************************
+ * @brief  The function used to allocate memory for the syslog
+ * buffer.
+ *
+ * This defaults to the standard C library malloc if not defined
+ * otherwise.
+ ******************************************************************/
+#ifndef SYSLOG_MALLOC
+#define SYSLOG_MALLOC(x)   malloc(x)
+#endif
+
+/*!****************************************************************
+ * @brief  The function used to free memory.
+ *
+ * This defaults to the standard C library free if not defined
+ * otherwise.
+ ******************************************************************/
+#ifndef SYSLOG_FREE
+#define SYSLOG_FREE (x)    free(x)
+#endif
+
+/*!****************************************************************
+ * @brief  The name of the syslog instance.
+ ******************************************************************/
+#ifndef SYSLOG_NAME
+#define SYSLOG_NAME        "Console Log"
+#endif
 
 #ifdef FREE_RTOS
     #include "FreeRTOS.h"
@@ -199,7 +242,7 @@ char *syslog_next(char *ts, size_t tsMax, char *line, size_t lineMax)
         snprintf(ts, tsMax, "[%6llu.%03llu] ", (unsigned long long)ts_sec,
             (unsigned long long)ts_ms);
 #else
-        snprintf(ts, tsMax, "[%9llu] ", (unsigned long long)ts);
+        snprintf(ts, tsMax, "[%9llu] ", (unsigned long long)u64ts);
 #endif
         ts[tsMax-1] = '\0';
     }

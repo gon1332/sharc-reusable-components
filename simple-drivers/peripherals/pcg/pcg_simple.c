@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2020 - Analog Devices Inc. All Rights Reserved.
+ * Copyright (c) 2024 - Analog Devices Inc. All Rights Reserved.
  * This software is proprietary and confidential to Analog Devices, Inc.
  * and its licensors.
  *
@@ -43,6 +43,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU(DAI0_PB08_O, PCG0_EXTCLKA_I); break;
                 case 9: SRU(DAI0_PB09_O, PCG0_EXTCLKA_I); break;
                 case 10: SRU(DAI0_PB10_O, PCG0_EXTCLKA_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU(DAI0_PB11_O, PCG0_EXTCLKA_I); break;
                 case 12: SRU(DAI0_PB12_O, PCG0_EXTCLKA_I); break;
                 case 13: SRU(DAI0_PB13_O, PCG0_EXTCLKA_I); break;
@@ -51,6 +52,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU(DAI0_PB16_O, PCG0_EXTCLKA_I); break;
                 case 17: SRU(DAI0_PB17_O, PCG0_EXTCLKA_I); break;
                 case 18: SRU(DAI0_PB18_O, PCG0_EXTCLKA_I); break;
+#endif
                 case 19: SRU(DAI0_PB19_O, PCG0_EXTCLKA_I); break;
                 case 20: SRU(DAI0_PB20_O, PCG0_EXTCLKA_I); break;
                 default: assert(0);
@@ -68,6 +70,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU(DAI0_PB08_O, PCG0_EXTCLKB_I); break;
                 case 9: SRU(DAI0_PB09_O, PCG0_EXTCLKB_I); break;
                 case 10: SRU(DAI0_PB10_O, PCG0_EXTCLKB_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU(DAI0_PB11_O, PCG0_EXTCLKB_I); break;
                 case 12: SRU(DAI0_PB12_O, PCG0_EXTCLKB_I); break;
                 case 13: SRU(DAI0_PB13_O, PCG0_EXTCLKB_I); break;
@@ -76,12 +79,14 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU(DAI0_PB16_O, PCG0_EXTCLKB_I); break;
                 case 17: SRU(DAI0_PB17_O, PCG0_EXTCLKB_I); break;
                 case 18: SRU(DAI0_PB18_O, PCG0_EXTCLKB_I); break;
+#endif
                 case 19: SRU(DAI0_PB19_O, PCG0_EXTCLKB_I); break;
                 case 20: SRU(DAI0_PB20_O, PCG0_EXTCLKB_I); break;
                 default: assert(0);
             }
             break;
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) ||defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
         case PCG_C:
             switch(pin) {
@@ -95,6 +100,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU2(DAI1_PB08_O, PCG0_EXTCLKC_I); break;
                 case 9: SRU2(DAI1_PB09_O, PCG0_EXTCLKC_I); break;
                 case 10: SRU2(DAI1_PB10_O, PCG0_EXTCLKC_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU2(DAI1_PB11_O, PCG0_EXTCLKC_I); break;
                 case 12: SRU2(DAI1_PB12_O, PCG0_EXTCLKC_I); break;
                 case 13: SRU2(DAI1_PB13_O, PCG0_EXTCLKC_I); break;
@@ -103,6 +109,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU2(DAI1_PB16_O, PCG0_EXTCLKC_I); break;
                 case 17: SRU2(DAI1_PB17_O, PCG0_EXTCLKC_I); break;
                 case 18: SRU2(DAI1_PB18_O, PCG0_EXTCLKC_I); break;
+#endif
                 case 19: SRU2(DAI1_PB19_O, PCG0_EXTCLKC_I); break;
                 case 20: SRU2(DAI1_PB20_O, PCG0_EXTCLKC_I); break;
                 default: assert(0);
@@ -120,6 +127,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU2(DAI1_PB08_O, PCG0_EXTCLKD_I); break;
                 case 9: SRU2(DAI1_PB09_O, PCG0_EXTCLKD_I); break;
                 case 10: SRU2(DAI1_PB10_O, PCG0_EXTCLKD_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU2(DAI1_PB11_O, PCG0_EXTCLKD_I); break;
                 case 12: SRU2(DAI1_PB12_O, PCG0_EXTCLKD_I); break;
                 case 13: SRU2(DAI1_PB13_O, PCG0_EXTCLKD_I); break;
@@ -128,6 +136,7 @@ static void pcg_route_clk( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU2(DAI1_PB16_O, PCG0_EXTCLKD_I); break;
                 case 17: SRU2(DAI1_PB17_O, PCG0_EXTCLKD_I); break;
                 case 18: SRU2(DAI1_PB18_O, PCG0_EXTCLKD_I); break;
+#endif
                 case 19: SRU2(DAI1_PB19_O, PCG0_EXTCLKD_I); break;
                 case 20: SRU2(DAI1_PB20_O, PCG0_EXTCLKD_I); break;
                 default: assert(0);
@@ -154,6 +163,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU(DAI0_PB08_O, PCG0_SYNC_CLKA_I); break;
                 case 9: SRU(DAI0_PB09_O, PCG0_SYNC_CLKA_I); break;
                 case 10: SRU(DAI0_PB10_O, PCG0_SYNC_CLKA_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU(DAI0_PB11_O, PCG0_SYNC_CLKA_I); break;
                 case 12: SRU(DAI0_PB12_O, PCG0_SYNC_CLKA_I); break;
                 case 13: SRU(DAI0_PB13_O, PCG0_SYNC_CLKA_I); break;
@@ -162,6 +172,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU(DAI0_PB16_O, PCG0_SYNC_CLKA_I); break;
                 case 17: SRU(DAI0_PB17_O, PCG0_SYNC_CLKA_I); break;
                 case 18: SRU(DAI0_PB18_O, PCG0_SYNC_CLKA_I); break;
+#endif
                 case 19: SRU(DAI0_PB19_O, PCG0_SYNC_CLKA_I); break;
                 case 20: SRU(DAI0_PB20_O, PCG0_SYNC_CLKA_I); break;
                 default: assert(0);
@@ -179,6 +190,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU(DAI0_PB08_O, PCG0_SYNC_CLKB_I); break;
                 case 9: SRU(DAI0_PB09_O, PCG0_SYNC_CLKB_I); break;
                 case 10: SRU(DAI0_PB10_O, PCG0_SYNC_CLKB_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU(DAI0_PB11_O, PCG0_SYNC_CLKB_I); break;
                 case 12: SRU(DAI0_PB12_O, PCG0_SYNC_CLKB_I); break;
                 case 13: SRU(DAI0_PB13_O, PCG0_SYNC_CLKB_I); break;
@@ -187,14 +199,15 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU(DAI0_PB16_O, PCG0_SYNC_CLKB_I); break;
                 case 17: SRU(DAI0_PB17_O, PCG0_SYNC_CLKB_I); break;
                 case 18: SRU(DAI0_PB18_O, PCG0_SYNC_CLKB_I); break;
+#endif
                 case 19: SRU(DAI0_PB19_O, PCG0_SYNC_CLKB_I); break;
                 case 20: SRU(DAI0_PB20_O, PCG0_SYNC_CLKB_I); break;
                 default: assert(0);
             }
             break;
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) ||defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
-
         case PCG_C:
             switch(pin) {
                 case 1: SRU2(DAI1_PB01_O, PCG0_SYNC_CLKC_I); break;
@@ -207,6 +220,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU2(DAI1_PB08_O, PCG0_SYNC_CLKC_I); break;
                 case 9: SRU2(DAI1_PB09_O, PCG0_SYNC_CLKC_I); break;
                 case 10: SRU2(DAI1_PB10_O, PCG0_SYNC_CLKC_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU2(DAI1_PB11_O, PCG0_SYNC_CLKC_I); break;
                 case 12: SRU2(DAI1_PB12_O, PCG0_SYNC_CLKC_I); break;
                 case 13: SRU2(DAI1_PB13_O, PCG0_SYNC_CLKC_I); break;
@@ -215,6 +229,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU2(DAI1_PB16_O, PCG0_SYNC_CLKC_I); break;
                 case 17: SRU2(DAI1_PB17_O, PCG0_SYNC_CLKC_I); break;
                 case 18: SRU2(DAI1_PB18_O, PCG0_SYNC_CLKC_I); break;
+#endif
                 case 19: SRU2(DAI1_PB19_O, PCG0_SYNC_CLKC_I); break;
                 case 20: SRU2(DAI1_PB20_O, PCG0_SYNC_CLKC_I); break;
                 default: assert(0);
@@ -232,6 +247,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 8: SRU2(DAI1_PB08_O, PCG0_SYNC_CLKD_I); break;
                 case 9: SRU2(DAI1_PB09_O, PCG0_SYNC_CLKD_I); break;
                 case 10: SRU2(DAI1_PB10_O, PCG0_SYNC_CLKD_I); break;
+#if !defined(__ADSP21568_FAMILY__)
                 case 11: SRU2(DAI1_PB11_O, PCG0_SYNC_CLKD_I); break;
                 case 12: SRU2(DAI1_PB12_O, PCG0_SYNC_CLKD_I); break;
                 case 13: SRU2(DAI1_PB13_O, PCG0_SYNC_CLKD_I); break;
@@ -240,6 +256,7 @@ static void pcg_route_fs( PCG_RESOURCE pcg, uint32_t pin ) {
                 case 16: SRU2(DAI1_PB16_O, PCG0_SYNC_CLKD_I); break;
                 case 17: SRU2(DAI1_PB17_O, PCG0_SYNC_CLKD_I); break;
                 case 18: SRU2(DAI1_PB18_O, PCG0_SYNC_CLKD_I); break;
+#endif
                 case 19: SRU2(DAI1_PB19_O, PCG0_SYNC_CLKD_I); break;
                 case 20: SRU2(DAI1_PB20_O, PCG0_SYNC_CLKD_I); break;
                 default: assert(0);
@@ -310,7 +327,8 @@ PCG_SIMPLE_RESULT pcg_open( PCG_SIMPLE_CONFIG * config) {
             *pREG_PCG0_SYNC1 = reg_sync << 16;
             *pREG_PCG0_CTLB0 = reg_ctrl0_2;
             break;
-#if defined(__ADSPSC589_FAMILY__) || defined(__ADSP21569_FAMILY__) || \
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) ||defined(__ADSP21569_FAMILY__) || \
     defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
         case PCG_C:
             *pREG_PCG0_SYNC2 = reg_sync;
@@ -343,12 +361,16 @@ PCG_SIMPLE_RESULT pcg_enable( PCG_RESOURCE pcg, bool enable)
     case PCG_B:
         pREG_PCG_CTL0 = pREG_PCG0_CTLB0;
         break;
+#if defined(__ADSPSC589_FAMILY__) || \
+    defined(__ADSP21568_FAMILY__) ||defined(__ADSP21569_FAMILY__) || \
+    defined(__ADSPSC594_FAMILY__) || defined(__ADSPSC598_FAMILY__)
     case PCG_C:
         pREG_PCG_CTL0 = pREG_PCG0_CTLC0;
         break;
     case PCG_D:
         pREG_PCG_CTL0 = pREG_PCG0_CTLD0;
         break;
+#endif
     default:
         assert(0);
     }

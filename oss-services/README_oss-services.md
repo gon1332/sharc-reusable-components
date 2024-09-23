@@ -29,6 +29,10 @@ ADI port of FreeRTOS for the SC5xx A55 ARM core.
 The `FreeRTOSv10.x.x-ARM` directory contains a cleaned-up version of the
 ADI port of FreeRTOS for the SHARC+ core.
 
+## c-timestamp
+
+A timestamp parsing and generating library
+
 ## crc
 
 The `crc` directory contains a simple and fast table driven crc16 routine
@@ -115,8 +119,7 @@ umm_malloc heap manager.
 
 ## xmodem
 
-The `xmodem` directory contains a small xmodem file transfer module borrowed
-from the eLua project.
+The `xmodem` directory contains a small x/ymodem file transfer module
 
 ## yxml
 

@@ -39,7 +39,7 @@
 #define SYSLOG_NAME        "Console Log"
 
 #define SYSLOG_MALLOC(x)   malloc(x)
-#define SYSLOG_FREE (x)    free(x)
+#define SYSLOG_FREE(x)     free(x)
 
 #define SYSLOG_LINE_MAX    (128)
 #define SYSLOG_MAX_LINES   (4096)
